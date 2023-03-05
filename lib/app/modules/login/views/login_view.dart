@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +16,47 @@ class LoginView extends GetView<LoginController> {
           centerTitle: true,
         ),
         body: ListView(
+          padding: const EdgeInsets.all(15),
           children: [
             TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              controller: emailC,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  labelText: 'Email'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Obx(
+              () => TextFormField(
+                keyboardType: TextInputType.text,
+                controller: passC,
+                obscureText: controller.ishidden.value,
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () => controller.ishidden.toggle(),
+                        icon: Icon(controller.ishidden.value == true
+                            ? Icons.remove_red_eye
+                            : Icons.remove_red_eye_outlined)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                    labelText: 'Password'),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9))),
+              onPressed: () {},
+              child: const Text('Login'),
             )
           ],
         ));
