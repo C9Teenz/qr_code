@@ -62,9 +62,24 @@ class AddProductView extends GetView<AddProductController> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9))),
             onPressed: () async {
-              controller.isLoading(true);
-              //....
-              controller.isLoading(false);
+              if (controller.isLoading.isFalse) {
+                if (codeC.text.isNotEmpty &&
+                    nameC.text.isNotEmpty &&
+                    qtyC.text.isNotEmpty) {
+                  controller.isLoading(true);
+                  Map<String, dynamic> result = await controller.addProduct({
+                    'code': codeC.text,
+                    'name': nameC.text,
+                    'quantity': int.tryParse(qtyC.text) ?? 0,
+                  });
+                  controller.isLoading(false);
+                  Get.back();
+                  Get.snackbar(result['error'] == true ? 'Failed' : 'Success',
+                      result['message']);
+                } else {
+                  Get.snackbar('Error', 'Tidak boleh ada yang kosong');
+                }
+              }
             },
             child: Obx(
               () => Text(
