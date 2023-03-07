@@ -19,7 +19,7 @@ class LoginView extends GetView<LoginController> {
           centerTitle: true,
         ),
         body: ListView(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(20),
           children: [
             TextFormField(
               keyboardType: TextInputType.emailAddress,

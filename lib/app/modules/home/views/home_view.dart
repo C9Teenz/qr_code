@@ -16,11 +16,58 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(20),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 20),
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          late String name;
+          late IconData icon;
+          late VoidCallback onTap;
+          switch (index) {
+            case 0:
+              name = 'Add Product';
+              icon = Icons.post_add;
+              onTap = () => Get.toNamed(Routes.addProduct);
+              break;
+            case 1:
+              name = 'Products';
+              icon = Icons.list_alt;
+              onTap = () => Get.toNamed(Routes.products);
+              break;
+            case 2:
+              name = 'QR Code';
+              icon = Icons.qr_code;
+              onTap = () => print('QR Code');
+              break;
+            case 3:
+              name = 'Catalogs';
+              icon = Icons.document_scanner;
+              onTap = () => print('Catalog');
+              break;
+          }
+          return Material(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(9),
+            child: InkWell(
+              onTap: onTap,
+              borderRadius: BorderRadius.circular(9),
+              child: SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
+                      size: 50,
+                    ),
+                    Text(name)
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
