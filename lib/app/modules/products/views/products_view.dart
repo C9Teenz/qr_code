@@ -48,7 +48,7 @@ class ProductsView extends GetView<ProductsController> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(9),
                     onTap: () {
-                      Get.toNamed(Routes.detailProduct);
+                      Get.toNamed(Routes.detailProduct, arguments: product);
                     },
                     child: Container(
                       height: 100,
@@ -68,7 +68,7 @@ class ProductsView extends GetView<ProductsController> {
                                   height: 5,
                                 ),
                                 Text(product.name),
-                                Text('${product.quantity}'),
+                                Text('Jumlah: ${product.quantity}'),
                               ],
                             ),
                           ),
