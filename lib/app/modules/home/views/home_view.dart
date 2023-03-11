@@ -39,12 +39,12 @@ class HomeView extends GetView<HomeController> {
             case 2:
               name = 'QR Code';
               icon = Icons.qr_code;
-              onTap = () => print('QR Code');
+              onTap = () => print('qrcode');
               break;
             case 3:
               name = 'Catalogs';
               icon = Icons.document_scanner;
-              onTap = () => print('Catalog');
+              onTap = () => controller.downloadCatalog();
               break;
           }
           return Material(
