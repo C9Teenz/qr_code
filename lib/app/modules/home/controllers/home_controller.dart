@@ -20,7 +20,7 @@ class HomeController extends GetxController {
     var result = await db.collection("products").get();
     allProduct.value =
         result.docs.map((e) => ProductsModel.fromJson(e.data())).toList();
-    print(allProduct.length);
+
     pdf.addPage(
       pw.MultiPage(
           pageFormat: PdfPageFormat.a4,
@@ -173,5 +173,27 @@ class HomeController extends GetxController {
 
     //open pdf
     await OpenFile.open(file.path);
+  }
+
+  Future<Map<String, dynamic>> getBarcode(String code) async {
+    try {
+      var result =
+          await db.collection('products').where("code", isEqualTo: code).get();
+      if (result.docs.first.data().isEmpty) {
+        throw "error";
+      } else {
+        Map<String, dynamic> data = result.docs.first.data();
+        return {
+          "error": false,
+          "message": "Successful getting data...",
+          "data": ProductsModel.fromJson(data)
+        };
+      }
+    } catch (e) {
+      return {
+        "error": true,
+        "message": "Data not found",
+      };
+    }
   }
 }
